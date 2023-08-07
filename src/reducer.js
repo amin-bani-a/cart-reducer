@@ -42,7 +42,6 @@ const reducer = (state, action) => {
 
     if (item.amount === 1) {
       newCart.delete(itemId);
-      console.log("remove");
       return {
         ...state,
         cart: newCart,
@@ -52,6 +51,20 @@ const reducer = (state, action) => {
     newCart.set(itemId, newItem);
     return {
       ...state,
+      cart: newCart,
+    };
+  }
+  if (action.type === LOADING) {
+    return {
+      ...state,
+      loading: true,
+    };
+  }
+  if (action.type === DISPLAY_ITEMS) {
+    const newCart = new Map(action.payload.cart.map((item) => [item.id, item]));
+    return {
+      ...state,
+      loading: false,
       cart: newCart,
     };
   }
